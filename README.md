@@ -1,5 +1,29 @@
 # AI Finance Collections Agent Platform
 
+## Agent Pipeline Data Flow
+
+```mermaid
+flowchart TD
+    subgraph Data Input
+        InvoiceDB[(Invoice Database)]
+    end
+
+    subgraph LangGraph Agent Pipeline
+        Start((Start)) --> Calc[Calculate Overdue Days]
+        Calc --> Det[Determine Stage & Tone]
+        Det -->|Stage 0 or >4| End((End / Escalate))
+        Det -->|Stage 1-4| Gen[Generate Email]
+        Gen --> End((End))
+    end
+
+    subgraph External LLM
+        xAI[xAI Grok API]
+    end
+
+    InvoiceDB -.->|Fetch Invoice Data| Calc
+    Gen <-->|Prompt & Generated Email| xAI
+```
+
 ## Overview
 This project is an enterprise-ready AI Finance Collections Agent platform. It is designed to autonomously manage overdue invoices through an intelligent, LangGraph-orchestrated workflow. The system features dynamic risk scoring, automated and escalating email communications based on urgency, and a modern, premium SaaS dashboard for invoice management, human escalation queues, and performance analytics.
 
