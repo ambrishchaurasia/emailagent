@@ -75,3 +75,7 @@ My strategy was to prioritize the core intelligent workflow and the dashboard's 
    ```bash
    npm run dev
    ```
+
+   ## Walkthrough Video
+
+[Watch the Full Demo Walkthrough](https://drive.google.com/file/d/1sWwmu90UOeE-qUpWXUQqDJnrLqDgdLu2/view?usp=sharing)
