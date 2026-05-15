@@ -2,8 +2,8 @@ import os
 from datetime import datetime, timezone
 from pydantic import BaseModel
 from typing import Dict, Any, TypedDict, Literal
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import StateGraph, END
 from app.models import Invoice
 
@@ -17,13 +17,12 @@ class AgentState(TypedDict):
     action_taken: str
     error: str
 
-# Use ChatOpenAI with xAI base url to interact with Grok
+# Use ChatGoogleGenerativeAI to interact with Gemini
 def get_llm():
-    xai_api_key = os.environ.get("XAI_API_KEY", "dummy_key")
-    return ChatOpenAI(
-        api_key=xai_api_key,
-        base_url="https://api.xai.com/v1",
-        model="grok-beta", # Update to appropriate Grok model name if needed
+    gemini_api_key = os.environ.get("GEMINI_API_KEY", "dummy_key")
+    return ChatGoogleGenerativeAI(
+        google_api_key=gemini_api_key,
+        model="gemini-2.5-flash",
         temperature=0.7
     )
 
